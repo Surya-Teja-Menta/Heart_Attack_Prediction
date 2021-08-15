@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-WineQuality
+Heart Attack Prediction
 {% endblock title %}
 
 
@@ -26,7 +26,7 @@ WineQuality
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://github.com/c17hawke/dvc-plus-cml-test">source code</a>
+                <a class="nav-link" href="https://github.com/Surya-Teja-Menta/Heart_Attack_Prediction">source code</a>
             </li>
         </ul>
     </div>
@@ -50,24 +50,24 @@ WineQuality
                                     <p class="mb-2">Enter the details as indicated:</p>
                                 </blockquote>
                             </label>
-                            <textarea class="form-control" name="fixed_acidity" rows="1"
-                                placeholder="fixed acidity expected range 4.6 to 15.9"></textarea>
-                            <textarea class="form-control" name="volatile_acidity" rows="1"
-                                placeholder="volatile acidity expected range 0.12 to 1.58"></textarea>
-                            <textarea class="form-control" name="citric_acid" rows="1"
-                                placeholder="citric acid expected range 0.0 to 1.0"></textarea>
-                            <textarea class="form-control" name="residual_sugar" rows="1"
-                                placeholder="residual sugar expected range 0.9 to 15.5"></textarea>
-                            <textarea class="form-control" name="chlorides" rows="1" 
-                                placeholder="chlorides expected range 0.012 to 0.611"></textarea>
-                            <textarea class="form-control" name="free_sulfur_dioxide" rows="1"
-                                placeholder="free sulfur dioxide expected range 1.0 to 72.0"></textarea>
-                            <textarea class="form-control" name="total_sulfur_dioxide" rows="1"
-                                placeholder="total sulfur dioxide expected range 6.0 to 289.0"></textarea>
-                            <textarea class="form-control" name="density" rows="1" 
-                                placeholder="density expected range 0.99007 to 1.00369"></textarea>
-                            <textarea class="form-control" name="pH" rows="1" 
-                                placeholder="pH expected range 2.74 to 4.01"></textarea>
+                            <textarea class="form-control" name="Age" rows="1"
+                                placeholder="Age"></textarea>
+                            <textarea class="form-control" name="Sex" rows="1"
+                                placeholder="Sex"></textarea>
+                            <textarea class="form-control" name="Chest_Pain" rows="1"
+                                placeholder="Chest_Pain"></textarea>
+                            <textarea class="form-control" name="Cholestoral" rows="1"
+                                placeholder="Cholestoral in mg/dl"></textarea>
+                            <textarea class="form-control" name="Fasting_Blood_Sugar" rows="1" 
+                                placeholder="Fasting Blood Sugar > 120mg/dl"></textarea>
+                            <textarea class="form-control" name="Resting_ElectroCardioGraphic" rows="1"
+                                placeholder="Resting Electro Cardio Graphic"></textarea>
+                            <textarea class="form-control" name="Maximum_Heart_Rate" rows="1"
+                                placeholder="Maximum Heart Rate"></textarea>
+                            <textarea class="form-control" name="Excrcise_Induced_Angina" rows="1" 
+                                placeholder="Exercise Induced Angina?"></textarea>
+                            <textarea class="form-control" name="Preious_Peak" rows="1" 
+                                placeholder="Previous Peak"></textarea>
                             <textarea class="form-control" name="sulphates" rows="1" 
                                 placeholder="sulphates expected range 0.33 to 2.0"></textarea>
                             <textarea class="form-control" name="alcohol" rows="1" 

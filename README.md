@@ -23,3 +23,6 @@ git init
 dvc init
 
 dvc add data_given/heart.csv
+
+git add . && git commit -m "Added Successfully"
+

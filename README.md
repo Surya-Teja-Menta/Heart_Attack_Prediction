@@ -45,7 +45,7 @@ git add . && git commit -m "Updated Successfully"
 ```
 
 ```bash
-git remote add origin https://github.com/Surya-Teja-Menta/Heart_Attack_Prediction/tree/main
+git remote add origin https://github.com/Surya-Teja-Menta/Heart_Attack_Prediction
 ```
 
 ```bash

@@ -18,11 +18,22 @@ Download the dataset from
 
 https://www.kaggle.com/rashikrahmanpritom/heart-attack-analysis-prediction-dataset
 
+Initiate Git
+'''bash
 git init
-
+'''
+Initiate dvc
+'''bash
 dvc init
+'''
 
+Add data to dvc
+'''bash
 dvc add data_given/heart.csv
+'''
 
+Add Everything to git
+
+'''bash
 git add . && git commit -m "Added Successfully"
-
+'''

@@ -23,9 +23,9 @@ Initiate Git
 git init
 '''
 Initiate dvc
-'''bash
-dvc init
 '''
+dvc init
+'''bash
 
 Add data to dvc
 '''bash

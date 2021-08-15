@@ -32,3 +32,29 @@ stages:
     - path: data/processed/train_heart.csv
       md5: 33f72b3c8735ab9aafaad5816b2951bb
       size: 9916
+  train_and_evaluate:
+    cmd: python src/train_and_evaluate.py --config=params.yaml
+    deps:
+    - path: data/processed/test_heart.csv
+      md5: 951b3be2871ae27b0ffc04aa82389d82
+      size: 2565
+    - path: data/processed/train_heart.csv
+      md5: 33f72b3c8735ab9aafaad5816b2951bb
+      size: 9916
+    - path: src/train_and_evaluate.py
+      md5: c1a585fdeec76c7ba7a098c8fd4c3b51
+      size: 2172
+    params:
+      params.yaml:
+        estimators.ElasticNet.params.alpha: 0.9
+        estimators.ElasticNet.params.l1_ratio: 0.4
+    outs:
+    - path: report/params.json
+      md5: a4aab0167612f21a6085dd05cfafdbf6
+      size: 41
+    - path: report/scores.json
+      md5: 87c85ab628e828570138448e9f277ad9
+      size: 96
+    - path: saved_models/model.joblib
+      md5: dfa1b1ec3fc2d8ed61fa1e9d63598321
+      size: 842

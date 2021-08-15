@@ -37,3 +37,21 @@ Add Everything to git
 ```bash
 git add . && git commit -m "Added Successfully"
 ```
+
+Connecting to Remote github
+
+```bash
+git add . && git commit -m "Updated Successfully"
+```
+
+```bash
+git remote add origin https://github.com/Surya-Teja-Menta/Heart_Attack_Prediction/tree/main
+```
+
+```bash
+git branch -M main
+```
+
+```bash
+git push origin main
+```

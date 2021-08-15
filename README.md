@@ -5,9 +5,9 @@ conda create -n Heart python==3.7 -y
 '''
 
 Activate env
-'''bash
+```bash
 conda activate Heart
-'''
+```
 Create a Requirements File and add requirements
 Install the Requirements
 '''bash

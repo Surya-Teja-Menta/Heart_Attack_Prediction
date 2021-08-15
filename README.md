@@ -1,8 +1,8 @@
 Create Environment
 
-'''bash
+```bash
 conda create -n Heart python==3.7 -y
-'''
+```
 
 Activate env
 ```bash
@@ -10,30 +10,30 @@ conda activate Heart
 ```
 Create a Requirements File and add requirements
 Install the Requirements
-'''bash
+```bash
 pip install -r requirements.txt
-'''
+```
 
 Download the dataset from
 
 https://www.kaggle.com/rashikrahmanpritom/heart-attack-analysis-prediction-dataset
 
 Initiate Git
-'''bash
+```bash
 git init
-'''
+```
 Initiate dvc
-'''
+```
 dvc init
-'''bash
+```bash
 
 Add data to dvc
-'''bash
+```bash
 dvc add data_given/heart.csv
-'''
+```
 
 Add Everything to git
 
-'''bash
+```bash
 git add . && git commit -m "Added Successfully"
-'''
+```

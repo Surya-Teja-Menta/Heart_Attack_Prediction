@@ -37,11 +37,17 @@ def predict(data):
 
     return s
 
+def api_response(request):
 
-
-
-
-
+    try:
+        data=np.array([list(request.json.values())])
+        response=predict(data)
+        response={"response":response}
+        return response
+    except Exception as e:
+        print(e)
+        error={'error':'Something went wrong'}
+        return error
 
 
 

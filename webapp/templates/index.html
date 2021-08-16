@@ -15,7 +15,7 @@ Heart Attack Prediction
 <!-- nav bar -->
 
 <nav class="navbar navbar-expand-lg navbar-light shadow fixed-top" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="/">WineQualityPrediction</a>
+    <a class="navbar-brand" href="/">Heart Attack Prediction</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -50,28 +50,44 @@ Heart Attack Prediction
                                     <p class="mb-2">Enter the details as indicated:</p>
                                 </blockquote>
                             </label>
-                            <textarea class="form-control" name="Age" rows="1"
-                                placeholder="Age"></textarea><br/>
-                            <input class="form-control" type="radio" name="gender" value="male"> Male
-                            <input class="form-control" type="radio" name="gender" value="female"> Female<br/>
-                            <textarea class="form-control" name="Chest_Pain" rows="1"
-                                placeholder="Chest_Pain"></textarea><br/>
-                            <textarea class="form-control" name="Cholestoral" rows="1"
-                                placeholder="Cholestoral in mg/dl"></textarea><br/>
-                            <textarea class="form-control" name="Fasting_Blood_Sugar" rows="1" 
-                                placeholder="Fasting Blood Sugar > 120mg/dl"></textarea><br/>
-                            <textarea class="form-control" name="Resting_ElectroCardioGraphic" rows="1"
-                                placeholder="Resting Electro Cardio Graphic"></textarea><br/>
-                            <textarea class="form-control" name="Maximum_Heart_Rate" rows="1"
-                                placeholder="Maximum Heart Rate"></textarea><br/>
-                            <textarea class="form-control" name="Excrcise_Induced_Angina" rows="1" 
-                                placeholder="Exercise Induced Angina?"></textarea><br/>
-                            <textarea class="form-control" name="Preious_Peak" rows="1" 
-                                placeholder="Previous Peak"></textarea><br/>
-                            <textarea class="form-control" name="sulphates" rows="1" 
-                                placeholder="sulphates expected range 0.33 to 2.0"></textarea><br/>
-                            <textarea class="form-control" name="alcohol" rows="1" 
-                                placeholder="alcohol expected range 8.4 to 14.9"></textarea><br/>
+                            <input type="number"  class="form-control" name="Age" min="1" max="100"
+                                placeholder="Age"></input>
+                            <select class="form-control" name="gender" id="gender" >
+                                
+                                <option value=1>Male</option>
+                                <option value=0>Female</option>
+
+                            </select>
+                            <input type="number" class="form-control" name="Resting_Blood_Pressure" min="80" max="250"
+                            placeholder="Resting Blood Pressure"></input>
+                            <input type="number" class="form-control" name="Chest_Pain" min="1" max="5"
+                                placeholder="Chest Pain"></input>
+                            <input type="number" class="form-control" name="Cholestoral" min="40" max="600"  
+                                placeholder="Cholestoral in mg/dl"></input>
+                            <select class="form-control" name="Fasting_Blood_sugar" id="Flasting_Blood_sugar" >
+                                <option disabled hidden selected>Fasting Blood Sugar > 120mg/dl?</option>
+                                <option value=0>False</option>
+                                <option value=1>True</option>
+                            </select>
+                            <input type="number"  class="form-control" name="Resting_ElectroCardioGraphic" min="0" max="2"
+                                placeholder="Resting Electro Cardio Graphic"></input>
+                            <input type="number" class="form-control" name="Maximum_Heart_Rate" min="1" max="250"
+                                placeholder="Maximum Heart Rate"></input>
+                            <select class="form-control" name="Excrcise_Induced_Angina" id="Excrcise_Induced_Angina" >
+                                <option disabled hidden selected>Exercise Induced Angina?</option>
+                                    <option value=1>yes</option>
+                                    <option value=0>No</option>
+                            </select>
+                            
+                            <input type="number" step="0.1" class="form-control" name="Preious_Peak" min="0" max="8.0" 
+                                placeholder="Previous Peak"></input>
+                            <input type="number" class="form-control" name="Slope" min="0" max="2"
+                                placeholder="Slope"></input>
+                            <input type="number" class="form-control" name="Major_Vessels" min="0" max="4"
+                                placeholder="Number of Major Vessels"></input>
+                            <input type="number" class="form-control" name="Thal_rate" min="0" max="4"
+                                placeholder="Thal Rate"></input>
+                           
 
                         </div>
 

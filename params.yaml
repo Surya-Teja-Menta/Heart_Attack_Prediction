@@ -1,7 +1,7 @@
 base:
   project: Heart Attack Prediction
   random_state: 42
-  target_col: output
+  target_col: target
 
 data_source:
   s3_source: data_given/heart.csv

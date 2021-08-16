@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error,mean_absolute_error,r2_score
 from sklearn.linear_model import ElasticNet
 from get_data import read_params
-import joblib,json
+import joblib,json,pickle
 
 def eval_metrics(actual,pred):
     rmse=np.sqrt(mean_squared_error(actual, pred))
@@ -60,6 +60,9 @@ def train_and_evaluate(config_path):
 
     model_path=os.path.join(model_dir,"model.joblib")
     joblib.dump(lr,model_path)
+    model_path=os.path.join(model_dir,"pickle_model")
+    with open('pickle_model','wb') as file:
+        pickle.dump(lr,file)
 
 
 if __name__ == '__main__':

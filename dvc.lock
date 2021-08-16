@@ -4,8 +4,8 @@ stages:
     cmd: python src/load_data.py --config=params.yaml
     deps:
     - path: data_given/heart.csv
-      md5: 0691643e62f74624d19253d61990b74b
-      size: 11323
+      md5: 4ee20893ad7e2ff8ff5ed8dd0e7f37bc
+      size: 38114
     - path: src/get_data.py
       md5: 49b155eca8388183f3597003de2a8213
       size: 582
@@ -14,36 +14,36 @@ stages:
       size: 489
     outs:
     - path: data/raw/heart.csv
-      md5: aa28ee81da398e99d50f4b4bbef5f42e
-      size: 12382
+      md5: 877bf2f14e5f33dec8ebe7d77b1d45b5
+      size: 41986
   split_data:
     cmd: python src/split_data.py --config=params.yaml
     deps:
     - path: data/raw/heart.csv
-      md5: aa28ee81da398e99d50f4b4bbef5f42e
-      size: 12382
+      md5: 877bf2f14e5f33dec8ebe7d77b1d45b5
+      size: 41986
     - path: src/split_data.py
       md5: baed1fb3490bc125e6f24890ace44366
       size: 949
     outs:
     - path: data/processed/test_heart.csv
-      md5: 951b3be2871ae27b0ffc04aa82389d82
-      size: 2565
+      md5: 899b75b9c1aa6258fb6b353ebca79440
+      size: 8472
     - path: data/processed/train_heart.csv
-      md5: 33f72b3c8735ab9aafaad5816b2951bb
-      size: 9916
+      md5: dae184a9598d45ac6ece24239b068586
+      size: 33615
   train_and_evaluate:
     cmd: python src/train_and_evaluate.py --config=params.yaml
     deps:
     - path: data/processed/test_heart.csv
-      md5: 951b3be2871ae27b0ffc04aa82389d82
-      size: 2565
+      md5: 899b75b9c1aa6258fb6b353ebca79440
+      size: 8472
     - path: data/processed/train_heart.csv
-      md5: 33f72b3c8735ab9aafaad5816b2951bb
-      size: 9916
+      md5: dae184a9598d45ac6ece24239b068586
+      size: 33615
     - path: src/train_and_evaluate.py
-      md5: c1a585fdeec76c7ba7a098c8fd4c3b51
-      size: 2172
+      md5: 1c1b23557219324c911fa065037e6b45
+      size: 2306
     params:
       params.yaml:
         estimators.ElasticNet.params.alpha: 0.88
@@ -53,8 +53,8 @@ stages:
       md5: 0568f34313ba7c5e55128b75dbcbee5c
       size: 43
     - path: report/scores.json
-      md5: c9a28e2e2f485caaedb46e47d937597d
-      size: 97
+      md5: 22c470a0533112c0d0fb713de5b5dc93
+      size: 96
     - path: saved_models/model.joblib
-      md5: 6fee7a41e9c571de89f3765d84d6f60f
+      md5: 0cdc9e8d2340c4a34a7b8d3a7791c006
       size: 842

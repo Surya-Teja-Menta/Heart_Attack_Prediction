@@ -26,14 +26,18 @@ def predict(data):
     config=read_params(params_path)
     model_dir_path=config['webapp_model_dir']
     #model=joblib.load_model(model_dir_path)
-    with open('prediction_service/model/pickle_model','rb') as file:
+    with open('pickle_model','rb') as file:
         pickle_file=pickle.load(file)
     prediction=pickle_file.predict(data)
-    print(prediction)
-    return prediction[0]
+    s=''
+    if prediction[0]>=0.5:
+        s='Positive'
+    else:
+        s='Negative'
 
-def api_response(request):
-    pass
+    return s
+
+
 
 
 
@@ -51,7 +55,7 @@ def index():
                 #data=conv(data)
                 data=[list(map(float,data[0]))]
                 response=predict(data)
-                return render_template('index.html',response=data)
+                return render_template('index.html',response=response)
             elif request.json:
                 response=api_response(request)
                 return jsonify(response)

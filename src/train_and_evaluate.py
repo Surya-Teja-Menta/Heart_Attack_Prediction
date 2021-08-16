@@ -28,9 +28,12 @@ def train_and_evaluate(config_path):
     train=pd.read_csv(train_data_path,sep=',')
     test=pd.read_csv(test_data_path,sep=',')
     train_y=train[target]
+    print("train_Y",train_y.shape)
     test_y=test[target]
     train_x=train.drop(target,axis=1)
+    train_x=train_x.drop('Unnamed: 0',axis=1)
     test_x=test.drop(target,axis=1)
+    test_x=test_x.drop('Unnamed: 0',axis=1)
     lr=ElasticNet(alpha=alpha,l1_ratio=l1_ratio,random_state=random_state)
     lr.fit(train_x,train_y)
     predicted_qualities=lr.predict(test_x)

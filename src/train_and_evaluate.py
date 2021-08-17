@@ -5,8 +5,12 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import mean_squared_error,mean_absolute_error,r2_score
 from sklearn.linear_model import ElasticNet
+from sklearn.svm import SVC
+from sklearn.preprocessing import StandardScaler
 from get_data import read_params
+from sklearn.dummy import DummyClassifier
 import joblib,json,pickle
+from mlxtend.classifier import StackingCVClassifier
 
 def eval_metrics(actual,pred):
     rmse=np.sqrt(mean_squared_error(actual, pred))
@@ -22,25 +26,28 @@ def train_and_evaluate(config_path):
     random_state=config['base']['random_state']
     model_dir=config['model_dir']
 
-    alpha=config['estimators']['ElasticNet']['params']['alpha']
-    l1_ratio=config['estimators']['ElasticNet']['params']['l1_ratio']
+    kernel=config['estimators']['SVC']['params']['kernel']
+    C=config['estimators']['SVC']['params']['C']
     target=[config['base']['target_col']]
     train=pd.read_csv(train_data_path,sep=',')
     test=pd.read_csv(test_data_path,sep=',')
+    scaler=StandardScaler()
     train_y=train[target]
-    print("train_Y",train_y.shape)
+    print("train_Y",len(train_y))
     test_y=test[target]
     train_x=train.drop(target,axis=1)
     train_x=train_x.drop('Unnamed: 0',axis=1)
+
     test_x=test.drop(target,axis=1)
     test_x=test_x.drop('Unnamed: 0',axis=1)
-    lr=ElasticNet(alpha=alpha,l1_ratio=l1_ratio,random_state=random_state)
+
+    lr=SVC(kernel=kernel,C=C)
     lr.fit(train_x,train_y)
     predicted_qualities=lr.predict(test_x)
   
   
     (rmse,mae,r2)= eval_metrics(test_y,predicted_qualities)
-    print("Elasticnet model (alpha=%f, l1_ratio=%f):" % (alpha, l1_ratio))
+    print("SVC model (kernel=%s, C=%s):" % (kernel, C))
     print("  RMSE: %s" % rmse)
     print("  MAE: %s" % mae)
     print("  R2: %s" % r2)
@@ -56,15 +63,15 @@ def train_and_evaluate(config_path):
         json.dump(scores,f,indent=4)
     with open(params_file,'w') as f:
         params={
-            'alpha':alpha,
-            'l1_ratio':l1_ratio,
+            'kernel':kernel,
+            'C':C,
         }
         json.dump(params,f,indent=4)
 
     model_path=os.path.join(model_dir,"model.joblib")
     joblib.dump(lr,model_path)
-    model_path=os.path.join(model_dir,"pickle_model")
-    with open('pickle_model','wb') as file:
+    model_path=os.path.join(model_dir,"pheart_model")
+    with open('heart_model','wb') as file:
         pickle.dump(lr,file)
 
 

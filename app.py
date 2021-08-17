@@ -18,7 +18,7 @@ def read_params(config_path):
 def predict(data):
     config=read_params(params_path)
     model_dir_path=config['webapp_model_dir']
-    with open('pickle_model','rb') as file:
+    with open('heart_model','rb') as file:
         pickle_file=pickle.load(file)
     prediction=pickle_file.predict(data)
     s=''

@@ -47,12 +47,12 @@ def train_and_evaluate(config_path):
     max_depth=5
     mlflow_config=config['mlflow_config']
     remote_server_url=mlflow_config['remote_server_url']
-    mlflow.set_tracking_url(remote_server_url)
+    mlflow.set_tracking_uri(remote_server_url)
     mlflow.set_experiment(mlflow_config['experiment_name'])
     with mlflow.start_run(run_name=mlflow_config['run_name']) as mlops:
 
 
-        lr=ExtraTreesClassifier(n_estimators=n_estimators,max_depth=max_depth)
+        lr=ExtraTreesClassifier(n_estimators=config['estimators']['ExtraTreeClassifier']['params']['n_estimators'],max_depth=config['estimators']['ExtraTreeClassifier']['params']['max_depth'])
         lr.fit(train,train_y)
         predicted_qualities=lr.predict(test_x)
     
@@ -62,15 +62,15 @@ def train_and_evaluate(config_path):
         print("  Precision: %s" % precision)
         print("  Recall: %s" % recall)
         print("  F1 Score: %s" % f1)
-        mlflow.log_params('n_estimators',n_estimators)
-        mlflow.log_params('max_depth',max_depth)
-        mlflow.log_params('Precision',precision)
-        mlflow.log_params('Recall',recall)
-        mlflow.log_params('F1_Score',f1)
+        mlflow.log_param('n_estimators',n_estimators)
+        mlflow.log_param('max_depth',max_depth)
+        mlflow.log_metric('Precision',precision)
+        mlflow.log_metric('Recall',recall)
+        mlflow.log_metric('F1_Score',f1)
         
         tracking_url_type_store=urlparse(mlflow.get_artifact_uri()).scheme
         if tracking_url_type_store!='file':
-            mlflow.sklearn.log_model(lr,'model',registered_model_name=mlflow_config['registered_model_name'])
+            mlflow.sklearn.log_model(lr,'model',registered_model_name=mlflow_config['registered_model'])
         else:
             mlflow.sklearn.load_model(lr,'model')
 

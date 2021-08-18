@@ -21,7 +21,7 @@ estimators:
       # alpha: 0.88
       # l1_ratio: 0.89
       n_estimators: 10
-      max_depth: 5     
+      max_depth: 3     
 model_dir: saved_models
 
 reports:

@@ -7,3 +7,4 @@ def config(config_path='params.yaml'):
         config=yaml.load(file)
     return config
 
+

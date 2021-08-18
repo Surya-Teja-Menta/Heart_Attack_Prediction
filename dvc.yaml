@@ -21,14 +21,11 @@ stages:
     - data/processed/train_heart.csv
     - data/processed/test_heart.csv 
     - src/train_and_evaluate.py
-    params:
-    - estimators.SVC.params.kernel
-    - estimators.SVC.params.C
+    
     metrics:
     - report/scores.json:
         cache: False
-    - report/params.json:
-        cache: False
+  
 
     outs:
     - saved_models/model.joblib

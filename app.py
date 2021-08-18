@@ -3,6 +3,7 @@ import os, yaml,joblib,pickle
 from sklearn.preprocessing import *
 import pandas as pd
 import numpy as np
+from prediction_service import prediction
 
 params_path='params.yaml'
 webapp_root='webapp'
@@ -10,44 +11,6 @@ static_dir=os.path.join(webapp_root,'static')
 template_dir=os.path.join(webapp_root,'templates')
 app=Flask(__name__, static_folder=static_dir,template_folder=template_dir)
 
-def read_params(config_path):
-    with open(config_path) as yaml_file:
-        config=yaml.safe_load(yaml_file)
-    return config
-
-
-def predict(data):
-    config=read_params(params_path)
-    model_dir_path=config['webapp_model_dir']
-    with open('heart_et','rb') as file:
-        pickle_file=pickle.load(file)
-    t='data/processed/train_heart.csv'
-    td=pd.read_csv(t)
-    mm=StandardScaler()
-    td.append(data,ignore_index=True)
-    tds=mm.fit_transform(td)
-    tds=pd.DataFrame(tds,columns=td.columns)
-    prediction=pickle_file.predict(tds.tail(1))
-
-    s=''
-    if prediction[0]>=0.5:
-        s='Positive'
-    else:
-        s='Negative'
-
-    return s
-
-def api_response(request):
-
-    try:
-        data=np.array([list(request.json.values())])
-        response=predict(data)
-        response={"response":response}
-        return response
-    except Exception as e:
-        print(e)
-        error={'error':'Something went wrong'}
-        return error
 
 
 
@@ -57,18 +20,19 @@ def index():
         try:
             if request.form:
                 data=dict(request.form)
-                data=[list(data.values())]
-                data=[list(map(float,data[0]))]
-                response=predict(data)
+                data=list(data.values())
+                print(data)
+                data=[float(i) for i in data]
+                response=prediction.form_response(data)
                 return render_template('index.html',response=response)
             elif request.json:
-                response=api_response(request)
+                response=prediction.api_response(request.json)
                 return jsonify(response)
 
         except Exception as e:
             print(e)
             error={"error":"Something went wrong"}
-            return render_template("404.html",error=error)
+            return render_template("404.html",error=e)
 
     else:
         return render_template("index.html")

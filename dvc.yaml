@@ -22,10 +22,19 @@ stages:
     - data/processed/test_heart.csv 
     - src/train_and_evaluate.py
     
-    metrics:
-    - report/scores.json:
-        cache: False
+    #metrics:
+    #- report/scores.json:
+    #    cache: False
   
 
-    outs:
-    - saved_models/model.joblib
+    #outs:
+    #- saved_models/model.joblib
+
+    #log_prediction_model:
+    #  cmd: python src/log_production_model.py --config=params.yaml
+    #  deps:
+    #  - src/log_production_model.py
+
+
+    
+

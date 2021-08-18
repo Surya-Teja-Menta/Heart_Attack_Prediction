@@ -75,4 +75,8 @@ Building our Own Package
 ```bash
 python setup.py sdist bdist_wheel
 ```
+mlflow server\
+    --backend-store-url sqlite:///mlflow.db\
+    --default-artifact-root ./artifacts\
+    --host 192.168.0.104 -p 5000
 

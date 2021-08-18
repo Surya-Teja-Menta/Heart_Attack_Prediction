@@ -7,8 +7,11 @@ from sklearn.metrics import recall_score,precision_score,f1_score
 from sklearn.ensemble import ExtraTreesClassifier 
 from sklearn.svm import SVC
 from sklearn.preprocessing import *
+from urllib.parse import urlparse
 from get_data import read_params
 import joblib,json,pickle
+import mlflow
+
 
 def eval_metrics(actual,pred):
     recall=recall_score(actual, pred)
@@ -40,37 +43,39 @@ def train_and_evaluate(config_path):
     testm=mm.transform(test_x)
     train=pd.DataFrame(trainm,columns=train_x.columns)
     test=pd.DataFrame(testm,columns=test_x.columns)
-    print(train.head())
-    print(test.head())
+    n_estimators=10
+    max_depth=5
+    mlflow_config=config['mlflow_config']
+    remote_server_url=mlflow_config['remote_server_url']
+    mlflow.set_tracking_url(remote_server_url)
+    mlflow.set_experiment(mlflow_config['experiment_name'])
+    with mlflow.start_run(run_name=mlflow_config['run_name']) as mlops:
+
+
+        lr=ExtraTreesClassifier(n_estimators=n_estimators,max_depth=max_depth)
+        lr.fit(train,train_y)
+        predicted_qualities=lr.predict(test_x)
     
-
-    lr=ExtraTreesClassifier()
-    lr.fit(train,train_y)
-    predicted_qualities=lr.predict(test_x)
-  
-  
-    (rmse,mae,r2)= eval_metrics(test_y,predicted_qualities)
-    print("Extra Tree Classifier model model :" )
-    print("  Precision: %s" % rmse)
-    print("  Recall: %s" % mae)
-    print("  F1 Score: %s" % r2)
-    score_file=config['reports']['scores']
-    params_file=config['reports']['params']
-
-    with open(score_file,'w') as f:
-        scores={
-            'Precison':rmse,
-            'Recall':mae,
-            'F1_score':r2
-        }
-        json.dump(scores,f,indent=4)
     
+        (precision,recall,f1)= eval_metrics(test_y,predicted_qualities)
+        print("Extra Tree Classifier model model :" )
+        print("  Precision: %s" % precision)
+        print("  Recall: %s" % recall)
+        print("  F1 Score: %s" % f1)
+        mlflow.log_params('n_estimators',n_estimators)
+        mlflow.log_params('max_depth',max_depth)
+        mlflow.log_params('Precision',precision)
+        mlflow.log_params('Recall',recall)
+        mlflow.log_params('F1_Score',f1)
+        
+        tracking_url_type_store=urlparse(mlflow.get_artifact_uri()).scheme
+        if tracking_url_type_store!='file':
+            mlflow.sklearn.log_model(lr,'model',registered_model_name=mlflow_config['registered_model_name'])
+        else:
+            mlflow.sklearn.load_model(lr,'model')
 
-    model_path=os.path.join(model_dir,"model.joblib")
-    joblib.dump(lr,model_path)
-    model_path=os.path.join(model_dir,"heart_model")
-    with open('heart_model','wb') as file:
-        pickle.dump(lr,file)
+        
+        
 
 
 if __name__ == '__main__':

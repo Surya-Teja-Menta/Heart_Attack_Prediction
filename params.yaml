@@ -15,7 +15,13 @@ split_data:
   test_size: 0.2
 
 
-      
+estimators:
+  ExtraTreeClassifier:
+    params:
+      # alpha: 0.88
+      # l1_ratio: 0.89
+      n_estimators: 10
+      max_depth: 5     
 model_dir: saved_models
 
 reports:
@@ -23,3 +29,10 @@ reports:
   scores: report/scores.json
 
 webapp_model_dir: prediction_service/model/model.joblib
+
+mlflow_config:
+  artifacts_dir: artifacts
+  experiment_name: Extra Tree Classification
+  run_name: mlop
+  registered_model: ExtraTreeClassifier
+  remote_server_url: http://192.168.0.104:5000/

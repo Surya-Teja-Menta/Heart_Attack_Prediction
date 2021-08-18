@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request,jsonify
 import os, yaml,joblib,pickle
-#from sklearn.externals import joblib
+from sklearn.preprocessing import *
+import pandas as pd
 import numpy as np
 
 params_path='params.yaml'
@@ -18,9 +19,16 @@ def read_params(config_path):
 def predict(data):
     config=read_params(params_path)
     model_dir_path=config['webapp_model_dir']
-    with open('heart_model','rb') as file:
+    with open('heart_et','rb') as file:
         pickle_file=pickle.load(file)
-    prediction=pickle_file.predict(data)
+    t='data/processed/train_heart.csv'
+    td=pd.read_csv(t)
+    mm=StandardScaler()
+    td.append(data,ignore_index=True)
+    tds=mm.fit_transform(td)
+    tds=pd.DataFrame(tds,columns=td.columns)
+    prediction=pickle_file.predict(tds.tail(1))
+
     s=''
     if prediction[0]>=0.5:
         s='Positive'

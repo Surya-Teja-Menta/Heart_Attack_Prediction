@@ -22,8 +22,8 @@ stages:
     - data/processed/test_heart.csv 
     - src/train_and_evaluate.py
     params:
-    - estimators.ElasticNet.params.alpha
-    - estimators.ElasticNet.params.l1_ratio
+    - estimators.SVC.params.kernel
+    - estimators.SVC.params.C
     metrics:
     - report/scores.json:
         cache: False

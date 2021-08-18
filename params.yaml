@@ -14,11 +14,7 @@ split_data:
   test_path: data/processed/test_heart.csv
   test_size: 0.2
 
-estimators:
-  SVC:
-    params:
-      kernel: 'rbf'
-      C: 2
+
       
 model_dir: saved_models
 

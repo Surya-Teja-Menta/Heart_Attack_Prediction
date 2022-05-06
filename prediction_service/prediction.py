@@ -18,15 +18,9 @@ def get_schema(schema_path=schema_path):
 
 def predict(data):
     config=read_params(params_path)
-    with open('heart_et','rb') as file:
+    with open('prediction_service/model/heart-svm.pkl','rb') as file:
         pickle_file=pickle.load(file)
-    t='data/processed/train_heart.csv'
-    td=pd.read_csv(t)
-    mm=StandardScaler()
-    td.append(data,ignore_index=True)
-    tds=mm.fit_transform(td)
-    tds=pd.DataFrame(tds,columns=td.columns)
-    prediction=pickle_file.predict(tds.tail(1))
+    prediction=pickle_file.predict(data)
 
     s=''
     if prediction[0]>=0.5:
